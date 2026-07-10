@@ -46,6 +46,19 @@ inventory = [
     }
 ]
 
+def add():
+    id = int(input("Enter id: "))
+    name = input("Enter name of product: ")
+    category = input("Enter category of product: ")
+    cost = int(input("Enter cost price: "))
+    sell = int(input("Enter selling price: "))
+    stock = int(input("Enter stock: "))
+    sold = 0
+
+    d = {'id': id, 'name': name, 'category':category,'cost_price':cost,'selling_price':sell,
+         'stock':stock, 'sold':sold}
+    inventory.append(d)
+
 
 while True:
     print('------------ Inventory Sales Managment System ------------')
@@ -54,7 +67,21 @@ while True:
     print("3. Reports")
     print("4. Search")
     print("5. Exit")
-    user = int(input("Enter Your choice (0-5): "))
+    user_1 = int(input("Enter Your choice (0-5): "))
 
-    if user == 1:
-        
+    if user_1 == 1:
+        print("1: Add Product")
+        print("2: View Products")
+        print("3: Search Product")
+        print("4: Update Product")
+        print("5: Delete Product")
+        print("6: Restock Product")
+        print("7: Low Stock Report")
+        print("8: Back")
+        user_2 = int(input("Enter Your choice (0-8): "))
+
+        if user_2 == 1:
+            add()
+
+
+print(inventory)
