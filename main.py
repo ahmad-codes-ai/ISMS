@@ -328,5 +328,3 @@ while True:
 
 
 
-print(inventory)
-print(sales)
