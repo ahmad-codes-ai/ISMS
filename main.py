@@ -46,6 +46,8 @@ inventory = [
     }
 ]
 
+sales = []
+
 def add():
     id = int(input("Enter id: "))
     name = input("Enter name of product: ")
@@ -176,6 +178,53 @@ def stock_alert():
         if i['stock'] < 3:
             print(f"{i['name']} has low stock: {i['stock']}")
 
+def sell():
+    id = int(input("Enter product id: "))
+    exist = item_exist(id)
+
+    if exist:
+        idx = item_index(id)
+        print(f"The product {id} has a stock of {inventory[idx]['stock']}")
+        quan = int(input("Enter the amount of product you want to sell: "))
+        stock = inventory[idx]['stock']
+
+        if quan < stock or quan == stock:
+            profit_1p = inventory[idx]['selling_price'] - inventory[idx]['cost_price'] 
+            total_p = profit_1p * quan
+            inventory[idx]['sold']+=quan
+            inventory[idx]['stock']-=quan
+            print(f"{quan} peices of {inventory[idx]['name']} has been sold")
+            print(f"Your profit is: {total_p}")
+            d = {'id':inventory[idx]['id'], 'sold':inventory[idx]['sold'], 'profit':total_p ,
+                 'profit_1p':profit_1p}
+            sales.append(d)
+        else:
+            print(f'Plz enter a value less then or equal to stock: {stock}')
+
+def sale_history():
+    for i in inventory:
+        print(i)
+
+def return_product():
+    id = int(input("Enter product id: "))
+    exist = item_exist(id)
+
+    if exist:
+        idx = item_index(id)
+        quan = int(input("Enter the number of products to return: "))
+        inventory[idx]['stock']+=quan
+        inventory[idx]['sold']-=quan
+
+        for i in sales:
+            if i['id'] == id:
+                tp = i['profit_1p'] * quan
+                i['profit']-=tp
+    else:
+        print('Item not found')
+
+    print(inventory)
+    print(sales)
+
 while True:
     print('------------ Inventory Sales Managment System ------------')
     print("1. Inventory")
@@ -212,3 +261,22 @@ while True:
             stock_alert()
         elif user_2 == 8:
             continue
+
+    if user_1 == 2:
+        print("1. Sell Product")
+        print("2. View Sales History")
+        print("3. Return Product")
+        print("4. Back")
+
+        user_22 = int(input("Enter Your choice: "))
+
+        if user_22 == 1:
+            sell()
+        elif user_22 == 2:
+            sale_history()
+        elif user_22 == 3:
+            return_product()
+        elif user_22 == 4:
+            continue
+        else:
+            print("Invalid input")
