@@ -100,17 +100,24 @@ def item_exist(id):
 def item_index(id):
     '''This is a helper function that will return the index position of an item found
     in the inventory'''
+    found = False
     idx = 0
     for i in inventory:
         if i['id'] == id:
-           return idx
+           found = True
            break
-        else:
-            return False
+        idx+=1
+
+    if found:
+        return idx
+    else:
+        return "Item not found"
+    
 
 def update():
-    id = input("Enter id: ")
+    id = int(input("Enter id: "))
     exist = item_exist(id)
+    print(exist)
     if exist:
         index = item_index(id)
         print("1: Name")
@@ -121,10 +128,53 @@ def update():
         
         if up == 1:
             n_name = input("Enter new name: ")
-            inventory[index]['name'] = n_name        
+            inventory[index]['name'] = n_name 
+        elif up == 2:
+            n_cat = input("Enter new category: ")
+            inventory[index]['category'] = n_cat
+        elif up == 3:
+            n_cost = int(input("Enter new cost price: "))
+            inventory[index]['cost_price'] = n_cost
+        elif up == 4:
+            n_sell = int(input("Enter new selling price: "))
+            inventory[index]['selling_price'] = n_sell
+        else:
+            print("Invalid Input")
 
+def delete():
+    id = int(input("Enter product id: "))
+    exist = item_exist(id)
 
-    
+    if exist:
+        idx = item_index(id)
+        print(inventory[idx])
+        de = input('Are you sure you want to delete this product (y/n)')
+
+        if de == 'y':
+            inventory.pop(idx)
+            print('This product has been deleted successfully')
+        elif de == 'n':
+            print('Deletition cancelled')
+        else:
+            print("Invalid Input given")
+
+    print(inventory)
+
+def restock():
+    id = int(input("Enter the id of the product: "))
+    exist = item_exist(id)
+
+    if exist:
+        idx = item_index(id)
+        n_stock = int(input("Enter the amount of items to add in stock: "))
+        inventory[idx]['stock']+=n_stock
+    else:
+        print('Item not found')
+
+def stock_alert():
+    for i in inventory:
+        if i['stock'] < 3:
+            print(f"{i['name']} has low stock: {i['stock']}")
 
 while True:
     print('------------ Inventory Sales Managment System ------------')
@@ -152,4 +202,13 @@ while True:
             view()
         elif user_2 == 3:
             search()
-
+        elif user_2 == 4:
+            update()
+        elif user_2 == 5:
+            delete()
+        elif user_2 == 6:
+            restock()
+        elif user_2 == 7:
+            stock_alert()
+        elif user_2 == 8:
+            continue
