@@ -225,6 +225,32 @@ def return_product():
     print(inventory)
     print(sales)
 
+def sales_summary():
+    total_p = 0
+    total_s = 0
+    for i in inventory:
+        sold = i['sold']
+        profit = i['selling_price'] - i['cost_price']
+        total_p = total_p + (sold*profit)
+        total_s+=sold
+    
+    print(f"Total products sold: {total_s}")
+    print(f"Total profit: {total_p}")
+     
+def best_selling():
+    top = 0
+    name = ""
+    for i in inventory:
+        sold = i['sold']
+        if sold > top:
+            top = sold
+            name = i['name']
+    for i in inventory:
+        if i["name"] == name:
+            t_sold = i['sold']
+
+    print(f"Your most selling product is {name} with {t_sold} items sold")
+
 while True:
     print('------------ Inventory Sales Managment System ------------')
     print("1. Inventory")
@@ -280,3 +306,19 @@ while True:
             continue
         else:
             print("Invalid input")
+
+    if user_1 == 3:
+        print("1. Sales Summary")
+        print("2. Best Selling Product")
+        print("3. Back")
+
+        user_33 = int(input("Enter your choice: "))
+
+        if user_33 == 1:
+            sales_summary()
+        elif user_33 == 2:
+            best_selling()
+        elif user_33 == 3:
+            continue
+        else:
+            print("Invalid Input")
