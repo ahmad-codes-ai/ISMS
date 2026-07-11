@@ -256,8 +256,7 @@ while True:
     print("1. Inventory")
     print("2. Sales")
     print("3. Reports")
-    print("4. Search")
-    print("5. Exit")
+    print("4. Exit")
     user_1 = int(input("Enter Your choice (0-5): "))
 
     if user_1 == 1:
@@ -288,7 +287,7 @@ while True:
         elif user_2 == 8:
             continue
 
-    if user_1 == 2:
+    elif user_1 == 2:
         print("1. Sell Product")
         print("2. View Sales History")
         print("3. Return Product")
@@ -307,7 +306,7 @@ while True:
         else:
             print("Invalid input")
 
-    if user_1 == 3:
+    elif user_1 == 3:
         print("1. Sales Summary")
         print("2. Best Selling Product")
         print("3. Back")
@@ -322,3 +321,12 @@ while True:
             continue
         else:
             print("Invalid Input")
+    
+    elif user_1 == 4:
+        print("Thanks for using this system. GoodBye !!")
+        break
+
+
+
+print(inventory)
+print(sales)
